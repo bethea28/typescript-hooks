@@ -1,13 +1,13 @@
-import { FIELD_NAMES } from './constants';
-import getTextTemplates from './helpers';
-
+import { FIELD_NAMES } from './constants'
+import getTextTemplates from './helpers'
+import { Dispatch } from 'redux'
 // Action types
 // ----------------------------------------------------------------------------
 
-export const SUBMIT_FIELD = 'MADLIBS.SUBMIT_FIELD';
-export const SHOW_TEXTAREA = 'MADLIBS.SHOW_TEXTAREA';
-export const START_OVER = 'MADLIBS.START_OVER';
-export const ADD_DATA = 'MADLIBS.ADD_DATA';
+export const SUBMIT_FIELD = 'MADLIBS.SUBMIT_FIELD'
+export const SHOW_TEXTAREA = 'MADLIBS.SHOW_TEXTAREA'
+export const START_OVER = 'MADLIBS.START_OVER'
+export const ADD_DATA = 'MADLIBS.ADD_DATA'
 
 // Initial state
 // ----------------------------------------------------------------------------
@@ -25,40 +25,42 @@ export const INITIAL_STATE = {
   fieldAnswers: [],
   essayText: [],
   showTextArea: false,
-};
+}
 
 // Action creators
 // ----------------------------------------------------------------------------
 
-export function submitField(value, answer, id) {
-  return { type: SUBMIT_FIELD, payload: { fieldId: id, answer, value } };
+export function submitField(value: string, answer: string[], id: number) {
+  return { type: SUBMIT_FIELD, payload: { fieldId: id, answer, value } }
 }
 
-export function setFieldData(fieldName, id, event) {
-  return { type: ADD_DATA, payload: { fieldName, id, event } };
+export function setFieldData(fieldName: string, id: number, event: object) {
+  return { type: ADD_DATA, payload: { fieldName, id, event } }
 }
 
 export function textAreaFlagChange() {
-  return { type: SHOW_TEXTAREA };
+  return { type: SHOW_TEXTAREA }
 }
 
 export function startOver() {
-  return { type: START_OVER };
+  return { type: START_OVER }
 }
-
 
 // Thunks
 // ----------------------------------------------------------------------------
 
-export const createSentenceThunk = (value, id, event, prevState) => (dispatch) => {
-  const template = getTextTemplates(FIELD_NAMES[value]);
-  const randomNumber = Math.floor(Math.random() * template.length);
-  const sentence = template[randomNumber];
 
-  // checking prevState answer against current state answer
-  const compareState = !prevState[id]?.includes(event.target.value);
-  if (compareState) dispatch(submitField(value, sentence, id));
-};
+export const createSentenceThunk =
+  (value: string, id: number, event: HTMLInputElement, prevState: string[]) =>
+  (dispatch: Dispatch) => {
+    const template = getTextTemplates(FIELD_NAMES[value])
+    const randomNumber = Math.floor(Math.random() * template.length)
+    const sentence = template[randomNumber]
+
+    // checking prevState answer against current state answer
+    const compareState = !prevState[id]?.includes(event.target.value)
+    if (compareState) dispatch(submitField(value, sentence, id))
+  }
 
 // Reducer
 // ----------------------------------------------------------------------------
@@ -66,38 +68,35 @@ export const createSentenceThunk = (value, id, event, prevState) => (dispatch) =
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SUBMIT_FIELD: {
-      const fieldAnswer = state.fieldAnswers[action.payload.fieldId];
+      const fieldAnswer = state.fieldAnswers[action.payload.fieldId]
 
       // update madlib template with input answer
-      const newSentence = action.payload.answer.replace(
-        '$answer',
-        fieldAnswer,
-      );
+      const newSentence = action.payload.answer.replace('$answer', fieldAnswer)
 
-      const finalEssayText = [...state.essayText];
+      const finalEssayText = [...state.essayText]
       finalEssayText.splice(
         action.payload.fieldId,
         1,
         // filter sentence for undefined
-        (!newSentence.includes('undefined') ? newSentence : ''),
-      );
-
+        !newSentence.includes('undefined') ? newSentence : ''
+      )
 
       return {
         ...state,
         fieldId: action.payload.fieldId,
         essayText: finalEssayText,
-      };
+      }
     }
 
     case ADD_DATA: {
-      const newArray = state.fieldAnswers.length > 0 ? [...state.fieldAnswers] : [];
-      newArray.splice(action.payload.id, 1, action.payload.event.target.value);
+      const newArray =
+        state.fieldAnswers.length > 0 ? [...state.fieldAnswers] : []
+      newArray.splice(action.payload.id, 1, action.payload.event.target.value)
       return {
         ...state,
         ...state.fieldAnswers,
         fieldAnswers: newArray,
-      };
+      }
     }
 
     case SHOW_TEXTAREA: {
@@ -105,7 +104,7 @@ export function reducer(state = INITIAL_STATE, action) {
         fieldOrder: [...state.fieldOrder],
         showTextArea: !state.showTextArea,
         essayText: state.essayText,
-      };
+      }
     }
     // startover resets state by assigning it to an empty array
     case START_OVER: {
@@ -114,10 +113,10 @@ export function reducer(state = INITIAL_STATE, action) {
         showTextArea: !state.showTextArea,
         essayText: [],
         fieldAnswers: [],
-      };
+      }
     }
 
     default:
-      return state;
+      return state
   }
 }

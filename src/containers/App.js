@@ -2,9 +2,17 @@ import { connect } from 'react-redux';
 import {
   setFieldData, createSentenceThunk, textAreaFlagChange, startOver,
 } from '../madlibs';
-import App from '../components/App.tsx';
+import App from '../components/App';
 
-function mapStateToProps(state) {
+type rootState = {
+  fieldOrder: string[],
+  fieldId: number,
+  fieldAnswers: string[],
+  essayText: string[],
+  showTextArea: boolean
+}
+
+function mapStateToProps(state: rootState) {
   return state;
 }
 

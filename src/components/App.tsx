@@ -8,7 +8,7 @@ require('./App.css');
 type Props = {
   fieldOrder: string[],
   setFieldData: (field: string, id: number, event: object) => object,
-  createSentenceThunk: (field: string, id: number, event: object, essayText: string[]) => object,
+  createSentenceThunk: (field: string, id: number, event: object, essayText: string[]) => any,
   essayText: string[],
   textAreaFlagChange: ()=> object,
   showTextArea: boolean,
