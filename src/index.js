@@ -6,8 +6,13 @@ import thunk from 'redux-thunk';
 import { reducer } from './madlibs.js';
 import App from './containers/App';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+type Props = {
+  reducer: object,
+  composeEnhancers: ()=>any
+}
+
+const composeEnhancers = compose;
+const store:Props = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>

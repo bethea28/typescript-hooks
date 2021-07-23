@@ -1,6 +1,6 @@
 import { FIELD_NAMES } from './constants';
 
-function getTextTemplates(fieldName) {
+function getTextTemplates(fieldName: string) {
   switch (fieldName) {
     case FIELD_NAMES.hometown: {
       return [
