@@ -1,0 +1,19 @@
+.essay {
+  background-color: white;
+  height: 610px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 350px;
+  padding-left: 30px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.essay_edit-button {
+  height: 50px;
+  margin-top: 50px;
+  width: 100px;
+  background-color: turquoise;
+  color: white;
+  border-radius: 5px;
+  
+}

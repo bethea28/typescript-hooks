@@ -1,0 +1,19 @@
+.form {
+  background-color: lightgrey ;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 350px;
+  height: 610px;
+  padding-left: 30px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.form_input {
+  border-radius: 5px;
+  height: 30px;
+  width: 270px;
+}
+.form_label-header {
+    margin-bottom: 8px;
+    margin-top: 20px;
+}
