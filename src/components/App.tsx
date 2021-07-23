@@ -6,13 +6,13 @@ import TextAreaComponent from './TextArea';
 require('./App.css');
 
 type Props = {
-  fieldOrder: string[]
-  setFieldData: (field: string, id: number, event: object) => any
-  createSentenceThunk: (field: string, id: number, event: object, essayText: string[]) => any
+  fieldOrder: string[],
+  setFieldData: (field: string, id: number, event: object) => object,
+  createSentenceThunk: (field: string, id: number, event: object, essayText: string[]) => object,
   essayText: string[],
-  textAreaFlagChange: ()=> any,
+  textAreaFlagChange: ()=> object,
   showTextArea: boolean,
-  startOver: ()=> any
+  startOver: ()=> object
 }
 
 const App = ({
