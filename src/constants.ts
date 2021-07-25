@@ -1,5 +1,5 @@
 export const FIELD_NAMES: {
- [ index: string]: any
+  [index: string]: any
 } = {
   hometown: 'hometown',
   favoriteFood: 'favoriteFood',
