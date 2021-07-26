@@ -1,6 +1,6 @@
 import React from 'react'
 import { FIELDS } from '../constants'
-
+import getTextTemplates from '../helpers'
 require('./Form.css')
 
 type Props = {
@@ -10,11 +10,25 @@ type Props = {
     id: number,
     event: React.ChangeEvent<HTMLInputElement>
   ) => any
-  // handleBlur: (field: string, id: number, event: object) => any
+  handleBlur: (finalMadlib: string[]) => any
 }
 
-const Form: React.FC<Props> = ({ fieldOrder, handleInputChange }) => {
-  // const [fields] = React.useState(Object.keys(FIELDS))
+const Form: React.FC<Props> = ({ fieldOrder, handleBlur }) => {
+  const [finalMadlib, setFinalMadlib] = React.useState<Array<string>>([''])
+  const [answers] = React.useState<Array<string>>([''])
+
+  const handleInputChange = (
+    field: string,
+    id: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    let template = getTextTemplates(field)
+    const randomNumber = Math.floor(Math.random() * template.length)
+    const updatedTemplate = template[randomNumber]
+    answers[id] = updatedTemplate.replace('$answer', event.target.value)
+
+    setFinalMadlib(answers)
+  }
 
   return (
     <form className='form'>
@@ -30,14 +44,10 @@ const Form: React.FC<Props> = ({ fieldOrder, handleInputChange }) => {
             className='form_input'
             type='text'
             name={field}
-            // onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            //   handleInputChange(field, id, event)
-            // }
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange(field, id, event)
             }
-
-            // onBlur={(event) => handleBlur(field, id, event)}
+            onBlur={() => handleBlur(finalMadlib)}
           />
         </label>
       ))}

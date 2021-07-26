@@ -2,7 +2,7 @@ import React from 'react'
 import Form from './Form'
 import { FIELDS } from '../constants'
 
-// import Essay from './Essay'
+import Essay from './Essay'
 // import TextAreaComponent from './TextArea'
 
 require('./App.css')
@@ -12,23 +12,14 @@ require('./App.css')
 // }
 
 const App = () => {
-  console.log('hey')
   const [fields] = React.useState(Object.keys(FIELDS))
-  const [answers, setAnswers] = React.useState([])
+  const [updatedEssay, setUpdatedEssay] = React.useState([''])
 
-  const setFieldData = (
-    field: string,
-    id: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    let newAnswers: any = [...answers]
-    newAnswers[id] = event.target.value
-    setAnswers(newAnswers)
-    console.log('hey brayn', answers)
+  const updateEssay = (finalMadlib: any) => {
+    console.log('handle blur updateessay', finalMadlib)
+    setUpdatedEssay(finalMadlib)
   }
-  // React.useEffect(() => {
-  //   console.log('answers', answers)
-  // }, [answers])
+  React.useEffect(() => {})
 
   return (
     <section className='App'>
@@ -37,20 +28,19 @@ const App = () => {
           <article>
             <Form
               // sending essayText to be used as previous state for comparison
-              // handleBlur={(field, id, event) => {
-              //   createSentenceThunk(field, id, event, essayText)
-              // }}
+              handleBlur={(finalMadlib) => setUpdatedEssay(finalMadlib)}
+              // handleBlur={(finalMadlib) => updateEssay(finalMadlib)}
               handleInputChange={(field, id, event) => {
-                setFieldData(field, id, event)
+                // setFieldData(field, id, event)
               }}
               fieldOrder={fields}
             />
           </article>
           <article>
-            {/* <Essay
-            // essayText={essayText}
-            // handleChangeTextAreaFlag={textAreaFlagChange}
-            /> */}
+            <Essay
+              essayText={updatedEssay}
+              // handleChangeTextAreaFlag={textAreaFlagChange}
+            />
           </article>
         </section>
       }
