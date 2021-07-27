@@ -9,10 +9,7 @@ type Props = {
 }
 
 const Essay: React.FC<Props> = ({ essayText }) => {
-  const [test] = React.useState(essayText)
-
-  console.log('test try', essayText)
-  React.useEffect(() => {}, [essayText, test])
+  React.useEffect(() => {})
 
   return (
     <section className='essay'>

@@ -11,11 +11,12 @@ type Props = {
     event: React.ChangeEvent<HTMLInputElement>
   ) => any
   handleBlur: (finalMadlib: string[]) => any
+  answers: string[]
 }
 
-const Form: React.FC<Props> = ({ fieldOrder, handleBlur }) => {
+const Form: React.FC<Props> = ({ fieldOrder, handleBlur, answers }) => {
   const [finalMadlib, setFinalMadlib] = React.useState<Array<string>>([''])
-  const [answers] = React.useState<Array<string>>([''])
+  // const [answers] = React.useState<Array<string>>([''])
 
   const handleInputChange = (
     field: string,
@@ -25,9 +26,10 @@ const Form: React.FC<Props> = ({ fieldOrder, handleBlur }) => {
     let template = getTextTemplates(field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
-    answers[id] = updatedTemplate.replace('$answer', event.target.value)
+    let newAnswers = [...answers]
+    newAnswers[id] = updatedTemplate.replace('$answer', event.target.value)
 
-    setFinalMadlib(answers)
+    setFinalMadlib(newAnswers)
   }
 
   return (

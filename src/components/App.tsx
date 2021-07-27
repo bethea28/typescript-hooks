@@ -14,11 +14,12 @@ require('./App.css')
 const App = () => {
   const [fields] = React.useState(Object.keys(FIELDS))
   const [updatedEssay, setUpdatedEssay] = React.useState([''])
+  const [answers] = React.useState<Array<string>>([''])
 
-  const updateEssay = (finalMadlib: any) => {
-    console.log('handle blur updateessay', finalMadlib)
-    setUpdatedEssay(finalMadlib)
-  }
+  // const updateEssay = (finalMadlib: any) => {
+  //   console.log('handle blur updateessay', finalMadlib)
+  //   setUpdatedEssay(finalMadlib)
+  // }
   React.useEffect(() => {})
 
   return (
@@ -34,6 +35,7 @@ const App = () => {
                 // setFieldData(field, id, event)
               }}
               fieldOrder={fields}
+              answers={answers}
             />
           </article>
           <article>
