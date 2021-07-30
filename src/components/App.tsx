@@ -20,7 +20,24 @@ const App = () => {
   const [blur, setBlur] = React.useState(false)
   const [answers, setAnswers] = React.useState<Array<string>>([''])
 
-  React.useEffect(() => {
+  // React.useEffect(() => {
+  //   let template = getTextTemplates(fieldData?.field)
+  //   const randomNumber = Math.floor(Math.random() * template.length)
+  //   const updatedTemplate = template[randomNumber]
+  //   answers[fieldData?.id] = updatedTemplate?.replace(
+  //     '$answer',
+  //     fieldData?.event.target.value
+  //   )
+  //   let newAnswers = [...answers]
+  //   setUpdatedEssay(newAnswers)
+  // }, [blur])
+
+  const StartOver = () => {
+    setUpdatedEssay([])
+    setAnswers([])
+    setShowTextArea(!textArea)
+  }
+  const handlingOnBlur = () => {
     let template = getTextTemplates(fieldData?.field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
@@ -30,12 +47,6 @@ const App = () => {
     )
     let newAnswers = [...answers]
     setUpdatedEssay(newAnswers)
-  }, [blur])
-
-  const StartOver = () => {
-    setUpdatedEssay([])
-    setAnswers([])
-    setShowTextArea(!textArea)
   }
 
   return (
@@ -45,7 +56,8 @@ const App = () => {
           <article>
             <Form
               // sending essayText to be used as previous state for comparison
-              handleBlur={() => setBlur((blur) => !blur)}
+              handleBlur={handlingOnBlur}
+              // handleBlur={() => setBlur((blur) => !blur)}
               handleInputChange={(field, id, event) => {
                 setFieldData({ field, id, event })
               }}
