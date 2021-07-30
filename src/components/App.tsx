@@ -30,7 +30,7 @@ const App = () => {
     )
     let newAnswers = [...answers]
     setUpdatedEssay(newAnswers)
-  })
+  }, [blur])
 
   const StartOver = () => {
     setUpdatedEssay([])
