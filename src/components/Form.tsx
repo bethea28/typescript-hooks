@@ -10,7 +10,6 @@ type Props = {
     event: React.ChangeEvent<HTMLInputElement>
   ) => any
   handleBlur: () => any
-  // handleBlur: (finalMadlib: string[]) => any
   answers: string[]
 }
 

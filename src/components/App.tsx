@@ -8,10 +8,6 @@ import TextAreaComponent from './TextArea'
 
 require('./App.css')
 
-// type Props = {
-//   showTextArea: boolean
-// }
-
 const App = () => {
   const [fields] = React.useState(Object.keys(FIELDS))
   const [updatedEssay, setUpdatedEssay] = React.useState<any>([])
