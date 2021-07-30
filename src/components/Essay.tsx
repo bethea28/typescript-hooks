@@ -10,7 +10,7 @@ type Props = {
 
 const Essay: React.FC<Props> = ({ essayText }) => {
   React.useEffect(() => {})
-
+  console.log('essay text', essayText)
   return (
     <section className='essay'>
       <article>
@@ -23,15 +23,14 @@ const Essay: React.FC<Props> = ({ essayText }) => {
 
       {/* tells the edit button to show when all fields are populated and none contain
        empty strings */}
-      {essayText.length >= Object.keys(FIELD_NAMES).length &&
-        essayText.indexOf('') < 0 && (
-          <button
-            className='essay_edit-button'
-            // onClick={handleChangeText  AreaFlag}
-          >
-            <h3>EDIT</h3>
-          </button>
-        )}
+      {essayText.length >= 6 && (
+        <button
+          className='essay_edit-button'
+          // onClick={handleChangeText  AreaFlag}
+        >
+          <h3>EDIT</h3>
+        </button>
+      )}
     </section>
   )
 }

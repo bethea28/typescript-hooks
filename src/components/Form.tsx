@@ -10,27 +10,33 @@ type Props = {
     id: number,
     event: React.ChangeEvent<HTMLInputElement>
   ) => any
-  handleBlur: (finalMadlib: string[]) => any
+  handleBlur: () => any
+  // handleBlur: (finalMadlib: string[]) => any
   answers: string[]
 }
 
-const Form: React.FC<Props> = ({ fieldOrder, handleBlur, answers }) => {
-  const [finalMadlib, setFinalMadlib] = React.useState<Array<string>>([''])
+const Form: React.FC<Props> = ({
+  fieldOrder,
+  handleBlur,
+  answers,
+  handleInputChange,
+}) => {
+  // const [finalMadlib, setFinalMadlib] = React.useState<Array<string>>([''])
   // const [answers] = React.useState<Array<string>>([''])
 
-  const handleInputChange = (
-    field: string,
-    id: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    let template = getTextTemplates(field)
-    const randomNumber = Math.floor(Math.random() * template.length)
-    const updatedTemplate = template[randomNumber]
-    let newAnswers = [...answers]
-    newAnswers[id] = updatedTemplate.replace('$answer', event.target.value)
+  // const handleInputChange = (
+  //   field: string,
+  //   id: number,
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   let template = getTextTemplates(field)
+  //   const randomNumber = Math.floor(Math.random() * template.length)
+  //   const updatedTemplate = template[randomNumber]
+  //   let newAnswers = [...answers]
+  //   newAnswers[id] = updatedTemplate.replace('$answer', event.target.value)
 
-    setFinalMadlib(newAnswers)
-  }
+  //   setFinalMadlib(newAnswers)
+  // }
 
   return (
     <form className='form'>
@@ -49,7 +55,8 @@ const Form: React.FC<Props> = ({ fieldOrder, handleBlur, answers }) => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange(field, id, event)
             }
-            onBlur={() => handleBlur(finalMadlib)}
+            onBlur={handleBlur}
+            // onBlur={() => handleBlur(finalMadlib)}
           />
         </label>
       ))}

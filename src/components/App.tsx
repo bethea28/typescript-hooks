@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from './Form'
 import { FIELDS } from '../constants'
+import getTextTemplates from '../helpers'
 
 import Essay from './Essay'
 // import TextAreaComponent from './TextArea'
@@ -13,14 +14,24 @@ require('./App.css')
 
 const App = () => {
   const [fields] = React.useState(Object.keys(FIELDS))
-  const [updatedEssay, setUpdatedEssay] = React.useState([''])
+  const [updatedEssay, setUpdatedEssay] = React.useState<any>([])
+  const [fieldData, setFieldData] = React.useState<any>({})
+  const [blur, setBlur] = React.useState(false)
   const [answers] = React.useState<Array<string>>([''])
 
-  // const updateEssay = (finalMadlib: any) => {
-  //   console.log('handle blur updateessay', finalMadlib)
-  //   setUpdatedEssay(finalMadlib)
-  // }
-  React.useEffect(() => {})
+  React.useEffect(() => {
+    console.log('fielddata', fieldData)
+    let template = getTextTemplates(fieldData?.field)
+    const randomNumber = Math.floor(Math.random() * template.length)
+    const updatedTemplate = template[randomNumber]
+    answers[fieldData?.id] = updatedTemplate?.replace(
+      '$answer',
+      fieldData?.event.target.value
+    )
+    let newAnswers = [...answers]
+    console.log('field datas blurs', answers)
+    setUpdatedEssay(newAnswers)
+  }, [blur])
 
   return (
     <section className='App'>
@@ -29,10 +40,9 @@ const App = () => {
           <article>
             <Form
               // sending essayText to be used as previous state for comparison
-              handleBlur={(finalMadlib) => setUpdatedEssay(finalMadlib)}
-              // handleBlur={(finalMadlib) => updateEssay(finalMadlib)}
+              handleBlur={() => setBlur((blur) => !blur)}
               handleInputChange={(field, id, event) => {
-                // setFieldData(field, id, event)
+                setFieldData({ field, id, event })
               }}
               fieldOrder={fields}
               answers={answers}
