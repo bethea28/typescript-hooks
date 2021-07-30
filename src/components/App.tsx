@@ -4,7 +4,7 @@ import { FIELDS } from '../constants'
 import getTextTemplates from '../helpers'
 
 import Essay from './Essay'
-// import TextAreaComponent from './TextArea'
+import TextAreaComponent from './TextArea'
 
 require('./App.css')
 
@@ -15,12 +15,12 @@ require('./App.css')
 const App = () => {
   const [fields] = React.useState(Object.keys(FIELDS))
   const [updatedEssay, setUpdatedEssay] = React.useState<any>([])
+  const [textArea, setShowTextArea] = React.useState<any>(false)
   const [fieldData, setFieldData] = React.useState<any>({})
   const [blur, setBlur] = React.useState(false)
-  const [answers] = React.useState<Array<string>>([''])
+  const [answers, setAnswers] = React.useState<Array<string>>([''])
 
   React.useEffect(() => {
-    console.log('fielddata', fieldData)
     let template = getTextTemplates(fieldData?.field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
@@ -29,13 +29,18 @@ const App = () => {
       fieldData?.event.target.value
     )
     let newAnswers = [...answers]
-    console.log('field datas blurs', answers)
     setUpdatedEssay(newAnswers)
-  }, [blur])
+  })
+
+  const StartOver = () => {
+    setUpdatedEssay([])
+    setAnswers([])
+    setShowTextArea(!textArea)
+  }
 
   return (
     <section className='App'>
-      {
+      {!textArea && (
         <section className='App_forms-container'>
           <article>
             <Form
@@ -51,17 +56,22 @@ const App = () => {
           <article>
             <Essay
               essayText={updatedEssay}
-              // handleChangeTextAreaFlag={textAreaFlagChange}
+              showTextArea={() =>
+                setShowTextArea((prevState: boolean) => !prevState)
+              }
             />
           </article>
         </section>
-      }
-      {/* 
-    {showTextArea && (
-      <article className='App_textarea-component'>
-      <TextAreaComponent handleStartOver={startOver} essayText={essayText} />
-      </article>
-    )} */}
+      )}
+
+      {textArea && (
+        <article className='App_textarea-component'>
+          <TextAreaComponent
+            handleStartOver={StartOver}
+            essayText={updatedEssay}
+          />
+        </article>
+      )}
     </section>
   )
 }

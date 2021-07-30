@@ -1,16 +1,14 @@
 import React from 'react'
-import { FIELD_NAMES } from '../constants'
 
 require('./Essay.css')
 
 type Props = {
   essayText: string[]
-  // handleChangeTextAreaFlag: () => any
+  showTextArea: () => any
 }
 
-const Essay: React.FC<Props> = ({ essayText }) => {
+const Essay: React.FC<Props> = ({ essayText, showTextArea }) => {
   React.useEffect(() => {})
-  console.log('essay text', essayText)
   return (
     <section className='essay'>
       <article>
@@ -24,10 +22,7 @@ const Essay: React.FC<Props> = ({ essayText }) => {
       {/* tells the edit button to show when all fields are populated and none contain
        empty strings */}
       {essayText.length >= 6 && (
-        <button
-          className='essay_edit-button'
-          // onClick={handleChangeText  AreaFlag}
-        >
+        <button className='essay_edit-button' onClick={showTextArea}>
           <h3>EDIT</h3>
         </button>
       )}

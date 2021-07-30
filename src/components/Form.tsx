@@ -1,6 +1,5 @@
 import React from 'react'
 import { FIELDS } from '../constants'
-import getTextTemplates from '../helpers'
 require('./Form.css')
 
 type Props = {
@@ -21,23 +20,6 @@ const Form: React.FC<Props> = ({
   answers,
   handleInputChange,
 }) => {
-  // const [finalMadlib, setFinalMadlib] = React.useState<Array<string>>([''])
-  // const [answers] = React.useState<Array<string>>([''])
-
-  // const handleInputChange = (
-  //   field: string,
-  //   id: number,
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   let template = getTextTemplates(field)
-  //   const randomNumber = Math.floor(Math.random() * template.length)
-  //   const updatedTemplate = template[randomNumber]
-  //   let newAnswers = [...answers]
-  //   newAnswers[id] = updatedTemplate.replace('$answer', event.target.value)
-
-  //   setFinalMadlib(newAnswers)
-  // }
-
   return (
     <form className='form'>
       <h2 className='form_header'>About Me</h2>
@@ -56,7 +38,6 @@ const Form: React.FC<Props> = ({
               handleInputChange(field, id, event)
             }
             onBlur={handleBlur}
-            // onBlur={() => handleBlur(finalMadlib)}
           />
         </label>
       ))}

@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-require('./TextArea.css');
+require('./TextArea.css')
 
 type Props = {
-  essayText: string[],
-  handleStartOver: ()=> any
+  essayText: string[]
+  handleStartOver: () => any
 }
 
 const TextAreaComponent: React.FC<Props> = ({ essayText, handleStartOver }) => (
@@ -26,5 +26,4 @@ const TextAreaComponent: React.FC<Props> = ({ essayText, handleStartOver }) => (
   </section>
 )
 
-
-export default TextAreaComponent;
+export default TextAreaComponent
