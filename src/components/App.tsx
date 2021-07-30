@@ -17,7 +17,7 @@ const App = () => {
   const [updatedEssay, setUpdatedEssay] = React.useState<any>([])
   const [textArea, setShowTextArea] = React.useState<any>(false)
   const [fieldData, setFieldData] = React.useState<any>({})
-  const [blur, setBlur] = React.useState(false)
+  // const [blur, setBlur] = React.useState(false)
   const [answers, setAnswers] = React.useState<Array<string>>([''])
 
   // React.useEffect(() => {
@@ -37,6 +37,7 @@ const App = () => {
     setAnswers([])
     setShowTextArea(!textArea)
   }
+
   const handlingOnBlur = () => {
     let template = getTextTemplates(fieldData?.field)
     const randomNumber = Math.floor(Math.random() * template.length)
