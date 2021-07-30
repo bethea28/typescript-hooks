@@ -14,23 +14,23 @@ const App = () => {
   const [textArea, setShowTextArea] = React.useState<any>(false)
   const [fieldData, setFieldData] = React.useState<any>({})
   // const [blur, setBlur] = React.useState(false)
-  const [answers, setAnswers] = React.useState<Array<string>>([''])
+  const [mainAnswers, setMainAnswers] = React.useState<Array<string>>([])
 
   // React.useEffect(() => {
   //   let template = getTextTemplates(fieldData?.field)
   //   const randomNumber = Math.floor(Math.random() * template.length)
   //   const updatedTemplate = template[randomNumber]
-  //   answers[fieldData?.id] = updatedTemplate?.replace(
+  //   mainAnswers[fieldData?.id] = updatedTemplate?.replace(
   //     '$answer',
   //     fieldData?.event.target.value
   //   )
-  //   let newAnswers = [...answers]
-  //   setUpdatedEssay(newAnswers)
+  //   let newMainAnswers = [...mainAnswers]
+  //   setUpdatedEssay(newMainAnswers)
   // }, [blur])
 
   const StartOver = () => {
     setUpdatedEssay([])
-    setAnswers([])
+    setMainAnswers([])
     setShowTextArea(!textArea)
   }
 
@@ -38,12 +38,12 @@ const App = () => {
     let template = getTextTemplates(fieldData?.field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
-    answers[fieldData?.id] = updatedTemplate?.replace(
+    mainAnswers[fieldData?.id] = updatedTemplate?.replace(
       '$answer',
       fieldData?.event.target.value
     )
-    let newAnswers = [...answers]
-    setUpdatedEssay(newAnswers)
+    let newMainAnswers = [...mainAnswers]
+    setUpdatedEssay(newMainAnswers)
   }
 
   return (
@@ -59,7 +59,7 @@ const App = () => {
                 setFieldData({ field, id, event })
               }}
               fieldOrder={fields}
-              answers={answers}
+              mainAnswers={mainAnswers}
             />
           </article>
           <article>

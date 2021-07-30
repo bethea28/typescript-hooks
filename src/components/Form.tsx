@@ -10,13 +10,13 @@ type Props = {
     event: React.ChangeEvent<HTMLInputElement>
   ) => any
   handleBlur: () => any
-  answers: string[]
+  mainAnswers: string[]
 }
 
 const Form: React.FC<Props> = ({
   fieldOrder,
   handleBlur,
-  answers,
+  mainAnswers,
   handleInputChange,
 }) => {
   return (
