@@ -13,12 +13,19 @@ const init = {
   id: 0,
   event: { target: { value: '' } },
 }
+
+type fieldData = {
+  field: string
+  id: number
+  event: { target: { value: string } }
+}
+
 const App = () => {
-  const [fields] = React.useState(Object.keys(FIELDS))
-  const [updatedEssay, setUpdatedEssay] = React.useState<Array<string>>([])
+  const [fields] = React.useState<string[]>(Object.keys(FIELDS))
+  const [updatedEssay, setUpdatedEssay] = React.useState<string[]>([])
   const [textArea, setShowTextArea] = React.useState<boolean>(false)
-  const [fieldData, setFieldData] = React.useState(init)
-  const [mainAnswers, setMainAnswers] = React.useState<Array<string>>([])
+  const [fieldData, setFieldData] = React.useState<fieldData>(init)
+  const [mainAnswers, setMainAnswers] = React.useState<string[]>([])
 
   const StartOver = () => {
     setUpdatedEssay([])
