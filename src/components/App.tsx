@@ -34,7 +34,7 @@ const App = () => {
     setShowTextArea(!textArea)
   }
 
-  const handlingOnBlur = () => {
+  const handlingOnBlur = (field: string, id: number, event: any) => {
     let template = getTextTemplates(fieldData?.field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
@@ -52,11 +52,11 @@ const App = () => {
         <section className='App_forms-container'>
           <article>
             <Form
-              // sending essayText to be used as previous state for comparison
-              handleBlur={handlingOnBlur}
-              // handleBlur={() => setBlur((blur) => !blur)}
               handleInputChange={(field, id, event) => {
                 setFieldData({ field, id, event })
+              }}
+              handleBlur={(field, id, event) => {
+                handlingOnBlur(field, id, event)
               }}
               fieldOrder={fields}
               mainAnswers={mainAnswers}

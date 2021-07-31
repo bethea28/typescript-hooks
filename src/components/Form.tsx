@@ -9,7 +9,12 @@ type Props = {
     id: number,
     event: React.ChangeEvent<HTMLInputElement>
   ) => any
-  handleBlur: () => any
+
+  handleBlur: (
+    field: string,
+    id: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => any
   mainAnswers: string[]
 }
 
@@ -36,7 +41,9 @@ const Form: React.FC<Props> = ({
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange(field, id, event)
             }
-            onBlur={handleBlur}
+            onBlur={(event: React.ChangeEvent<HTMLInputElement>) =>
+              handleBlur(field, id, event)
+            }
           />
         </label>
       ))}
