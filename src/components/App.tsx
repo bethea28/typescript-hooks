@@ -8,25 +8,17 @@ import TextAreaComponent from './TextArea'
 
 require('./App.css')
 
+const init = {
+  field: '',
+  id: 0,
+  event: { target: { value: '' } },
+}
 const App = () => {
   const [fields] = React.useState(Object.keys(FIELDS))
-  const [updatedEssay, setUpdatedEssay] = React.useState<any>([])
-  const [textArea, setShowTextArea] = React.useState<any>(false)
-  const [fieldData, setFieldData] = React.useState<any>({})
-  // const [blur, setBlur] = React.useState(false)
+  const [updatedEssay, setUpdatedEssay] = React.useState<Array<string>>([])
+  const [textArea, setShowTextArea] = React.useState<boolean>(false)
+  const [fieldData, setFieldData] = React.useState(init)
   const [mainAnswers, setMainAnswers] = React.useState<Array<string>>([])
-
-  // React.useEffect(() => {
-  //   let template = getTextTemplates(fieldData?.field)
-  //   const randomNumber = Math.floor(Math.random() * template.length)
-  //   const updatedTemplate = template[randomNumber]
-  //   mainAnswers[fieldData?.id] = updatedTemplate?.replace(
-  //     '$answer',
-  //     fieldData?.event.target.value
-  //   )
-  //   let newMainAnswers = [...mainAnswers]
-  //   setUpdatedEssay(newMainAnswers)
-  // }, [blur])
 
   const StartOver = () => {
     setUpdatedEssay([])
@@ -34,8 +26,12 @@ const App = () => {
     setShowTextArea(!textArea)
   }
 
-  const handlingOnBlur = (field: string, id: number, event: any) => {
-    let template = getTextTemplates(fieldData?.field)
+  const handlingOnBlur = (
+    field: string,
+    id: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    let template = getTextTemplates(fieldData.field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
     mainAnswers[fieldData?.id] = updatedTemplate?.replace(

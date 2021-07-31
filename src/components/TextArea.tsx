@@ -12,11 +12,7 @@ const TextAreaComponent: React.FC<Props> = ({ essayText, handleStartOver }) => (
     <h2>Your essay text</h2>
 
     {/* onChange required for eslint purposes */}
-    <textarea
-      onChange={() => ''}
-      className='textarea-component'
-      value={essayText}
-    />
+    <textarea className='textarea-component' value={essayText} />
     <button
       className='textarea-container_startover_button '
       onClick={handleStartOver}
