@@ -35,6 +35,7 @@ const Form: React.FC<Props> = ({
         >
           <h4 className='form_label-header'>{FIELDS[field]}</h4>
           <input
+            value={mainAnswers[id]}
             className='form_input'
             type='text'
             name={field}
