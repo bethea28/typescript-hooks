@@ -8,6 +8,7 @@ type Props = {
 }
 
 const Essay: React.FC<Props> = ({ essayText, showTextArea }) => {
+  console.log('essay')
   return (
     <section className='essay'>
       <article>

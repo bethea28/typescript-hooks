@@ -24,6 +24,8 @@ const Form: React.FC<Props> = ({
   mainAnswers,
   handleInputChange,
 }) => {
+  console.log('form')
+
   return (
     <form className='form'>
       <h2 className='form_header'>About Me</h2>
