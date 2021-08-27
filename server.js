@@ -28,50 +28,105 @@ mongoose.connect(process.env.REACT_APP_NOT_MONGO_URI, {
   useUnifiedTopology: true,
 })
 
-let Book = mongoose.model('Book', Schemas.BookSchema)
+// let Book = mongoose.model('Book', Schemas.BookSchema)
+let MadlibSchema = mongoose.model('Madlib', Schemas.MadlibSchema)
+
+console.log('madlib', MadlibSchema)
 
 const typeDefs = gql`
-  type BookPayload {
-    title: String
-    author: String
+  # type BookPayload {
+  #   title: String
+  #   author: String
+  #   id: Int
+  # }
+
+  type MadlibPayload {
+    growUp: String
+    favoriteFood: String
+    loveTodDo: String
+    messageMe: String
+    band: String
+    favoriteHole: String
     id: Int
   }
 
   type Query {
-    getAllBooks(id: Int): [BookPayload]
+    # getAllBooks(id: Int): [BookPayload]
+    getMadlibs(id: Int): [MadlibPayload]
   }
 
   type Mutation {
-    createBook(title: String, author: String, id: Int): BookPayload
+    # createBook(title: String, author: String, id: Int): BookPayload
+    createMadlib(
+      growUp: String
+      favoriteFood: String
+      loveTodDo: String
+      messageMe: String
+      band: String
+      favoriteHole: String
+      id: Int
+    ): MadlibPayload
   }
 `
 const resolvers = {
-  // Query: {
-  //   getAllBooks: async (parent, args) => {
-  //     if (args.id) {
-  //       let findAll = await Book.find()
-  //       console.log('find one', findAll)
-  //       return findAll.filter((a) => {
-  //         return a.id === args.id
-  //       })
-  //     }
-  //     return Book.find()
-  //   },
-  // },
+  Query: {
+    getMadlibs: async (parent, args) => {
+      console.log('get mad libs', args)
+      if (args.id) {
+        let findAll = await MadlibSchema.find()
+        console.log('find one', findAll)
+        return findAll.filter((a) => {
+          return a.id === args.id
+        })
+      }
+      return MadlibSchema.find()
+    },
+    // getAllBooks: async (parent, args) => {
+    //   if (args.id) {
+    //     let findAll = await Book.find()
+    //     console.log('find one', findAll)
+    //     return findAll.filter((a) => {
+    //       return a.id === args.id
+    //     })
+    //   }
+    //   return Book.find()
+    // },
+  },
   Mutation: {
-    createBook: (parents, args) => {
-      console.log('args', args)
-      Book.create({
-        title: args.title,
-        author: args.author,
+    createMadlib: (parents, args) => {
+      console.log('args madlib', args)
+      MadlibSchema.create({
+        growUp: args.growUp,
+        favoriteFood: args.favoriteFood,
+        loveTodDo: args.loveTodDo,
+        messageMe: args.messageMe,
+        band: args.band,
+        favoriteHole: args.favoriteHole,
         id: args.id,
       })
       return {
-        title: args.title,
-        author: args.author,
+        growUp: args.growUp,
+        favoriteFood: args.favoriteFood,
+        loveTodDo: args.loveTodDo,
+        messageMe: args.messageMe,
+        band: args.band,
+        favoriteHole: args.favoriteHole,
         id: args.id,
       }
     },
+    // createBook: (parents, args) => {
+    //   console.log('args', args)
+    //   Book.create({
+    //     title: args.title,
+    //     author: args.author,
+    //     id: args.id,
+    //   })
+    //   return {
+    //     title: args.title,
+    //     author: args.author,
+    //     id: args.id,
+    //   }
+    // },
   },
 }
 const client = new ApolloClient({
@@ -84,11 +139,8 @@ const server = new ApolloServer({
   client,
 })
 
-// let test = async () => {
-// }
 server.start()
 
-// test()
 server.applyMiddleware({ app })
 
 // The `listen` method launches a web server.
