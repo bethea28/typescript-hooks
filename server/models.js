@@ -9,6 +9,13 @@ const BookSchema = new mongoose.Schema({
   id: Number,
 })
 
+const UserSchema = new mongoose.Schema({
+  id: Number,
+  username: String,
+  email: String,
+  password: String,
+})
+
 const MadlibSchema = new mongoose.Schema({
   growUp: String,
   favoriteFood: String,
@@ -21,5 +28,5 @@ const MadlibSchema = new mongoose.Schema({
 
 // BookSchema.plugin(findOrCreate)
 
-module.exports = { BookSchema, MadlibSchema }
+module.exports = { BookSchema, MadlibSchema, UserSchema }
 // module.exports = mongoose.model("Person", PersonSchema);

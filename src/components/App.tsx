@@ -8,7 +8,7 @@ import TextAreaComponent from './TextArea'
 
 require('./App.css')
 
-const init = {
+const initFieldData = {
   field: '',
   id: 0,
   event: { target: { value: '' } },
@@ -22,10 +22,14 @@ type fieldData = {
 
 const App = () => {
   const [fields] = React.useState<string[]>(Object.keys(FIELDS))
-  const [updatedEssay, setUpdatedEssay] = React.useState<string[]>([])
+  const [updatedEssay, setUpdatedEssay] = React.useState<string[]>(
+    Array(6).fill('')
+  )
   const [textArea, setShowTextArea] = React.useState<boolean>(false)
-  const [fieldData, setFieldData] = React.useState<fieldData>(init)
-  const [mainAnswers, setMainAnswers] = React.useState<string[]>([])
+  const [fieldData, setFieldData] = React.useState<fieldData>(initFieldData)
+  const [mainAnswers, setMainAnswers] = React.useState<string[]>(
+    Array(6).fill('')
+  )
 
   const StartOver = () => {
     setUpdatedEssay([])
@@ -33,11 +37,12 @@ const App = () => {
     setShowTextArea(!textArea)
   }
 
-  const handlingOnBlur = (
-    field: string,
-    id: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlingOnBlur = () => {
+    /*
+    function called when onblur is triggered
+    it generates new random madlib template and fills the answers
+    */
+    //core logic to generate template// need to take template out of array so that edit button works right
     let template = getTextTemplates(fieldData.field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
@@ -55,11 +60,15 @@ const App = () => {
         <section className='App_forms-container'>
           <article>
             <Form
-              handleInputChange={(field, id, event) => {
+              handleInputChange={(
+                field: string,
+                id: number,
+                event: React.ChangeEvent<HTMLInputElement>
+              ) => {
                 setFieldData({ field, id, event })
               }}
-              handleBlur={(field, id, event) => {
-                handlingOnBlur(field, id, event)
+              handleBlur={() => {
+                handlingOnBlur()
               }}
               fieldOrder={fields}
               mainAnswers={mainAnswers}

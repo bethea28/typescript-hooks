@@ -8,8 +8,6 @@ type Props = {
 }
 
 const TextAreaComponent: React.FC<Props> = ({ essayText, handleStartOver }) => {
-  console.log('textarea')
-
   return (
     <section className='textarea-container'>
       <h2>Your essay text</h2>

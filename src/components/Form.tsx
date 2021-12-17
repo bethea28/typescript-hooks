@@ -1,5 +1,12 @@
+/* 
+Form takes in data through onChange but only displays it to screen when onBlur
+is triggered
+*/
 import React from 'react'
 import { FIELDS } from '../constants'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
 require('./Form.css')
 
 type Props = {
@@ -10,11 +17,7 @@ type Props = {
     event: React.ChangeEvent<HTMLInputElement>
   ) => any
 
-  handleBlur: (
-    field: string,
-    id: number,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => any
+  handleBlur: () => any
   mainAnswers: string[]
 }
 
@@ -37,16 +40,17 @@ const Form: React.FC<Props> = ({
         >
           <h4 className='form_label-header'>{FIELDS[field]}</h4>
           <input
-            value={mainAnswers[id]}
+            // value={mainAnswers[id]}
             className='form_input'
             type='text'
             name={field}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange(field, id, event)
             }
-            onBlur={(event: React.ChangeEvent<HTMLInputElement>) =>
-              handleBlur(field, id, event)
-            }
+            onBlur={() => handleBlur()}
+            // onBlur={(event: React.ChangeEvent<HTMLInputElement>) =>
+            //   handleBlur(field, id, event)
+            // }
           />
         </label>
       ))}
@@ -54,4 +58,34 @@ const Form: React.FC<Props> = ({
   )
 }
 
+const createMadlibMutation = gql`
+  mutation addChannel(
+    $growUp: String
+    $favoriteFood: String
+    $loveTodDo: String
+    $messageMe: String
+    $band: String
+    $favoriteHole: String
+    $id: String
+  ) {
+    createMadlib(
+      growUp: $growUp
+      favoriteFood: $favoriteFood
+      loveTodDo: $loveTodDo
+      messageMe: $messageMe
+      band: $band
+      favoriteHole: $favoriteHole
+      id: $id
+    ) {
+      growUp
+      favoriteFood
+      loveTodDo
+      messageMe
+      band
+      favoriteHole
+      id
+    }
+  }
+`
+// const FormWithMutation = graphql(createMadlibMutation)(Form)
 export default Form

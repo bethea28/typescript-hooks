@@ -8,7 +8,14 @@ type Props = {
 }
 
 const Essay: React.FC<Props> = ({ essayText, showTextArea }) => {
-  console.log('essay')
+  const showEditButton = () => {
+    let show = essayText.every((text) => {
+      return text.length > 1
+    })
+    console.log('shwo what the fuck', show)
+    return show
+  }
+  console.log('essay', essayText)
   return (
     <section className='essay'>
       <article>
@@ -21,7 +28,7 @@ const Essay: React.FC<Props> = ({ essayText, showTextArea }) => {
 
       {/* tells the edit button to show when all fields are populated and none contain
        empty strings */}
-      {essayText.length >= 6 && (
+      {showEditButton() && (
         <button className='essay_edit-button' onClick={showTextArea}>
           <h3>EDIT</h3>
         </button>
