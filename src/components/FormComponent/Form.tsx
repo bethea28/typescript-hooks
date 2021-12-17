@@ -3,7 +3,7 @@ Form takes in data through onChange but only displays it to screen when onBlur
 is triggered
 */
 import React from 'react'
-import { FIELDS } from '../constants'
+import { FIELDS } from '../../constants'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 

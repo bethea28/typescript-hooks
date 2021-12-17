@@ -1,10 +1,10 @@
 import React from 'react'
-import Form from './Form'
+import Form from './FormComponent/Form'
 import { FIELDS } from '../constants'
 import getTextTemplates from '../helpers'
 
-import Essay from './Essay'
-import TextAreaComponent from './TextArea'
+import Essay from './EssayComponent/Essay'
+import TextAreaComponent from './TextAAeaComponent/TextArea'
 
 require('./App.css')
 
