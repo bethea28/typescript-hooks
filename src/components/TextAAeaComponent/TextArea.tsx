@@ -2,18 +2,21 @@ import React from 'react'
 
 require('./TextArea.css')
 
-type Props = {
+type TextAreaComponentProps = {
   essayText: string[]
-  handleStartOver: () => any
+  handleStartOver: () => void
 }
 
-const TextAreaComponent: React.FC<Props> = ({ essayText, handleStartOver }) => {
+const TextAreaComponent = ({
+  essayText,
+  handleStartOver,
+}: TextAreaComponentProps) => {
   return (
     <section className='textarea-container'>
       <h2>Your essay text</h2>
 
       {/* onChange required for eslint purposes */}
-      <textarea className='textarea-component' value={essayText} />
+      <textarea className='textarea-component' value={essayText.join(' ')} />
       <button
         className='textarea-container_startover_button '
         onClick={handleStartOver}

@@ -2,33 +2,26 @@ import React from 'react'
 
 require('./Essay.css')
 
-type Props = {
+type EssayProps = {
   essayText: string[]
-  showTextArea: () => any
+  showTextArea: () => void
+  editButton: boolean
 }
 
-const Essay: React.FC<Props> = ({ essayText, showTextArea }) => {
-  const showEditButton = () => {
-    let show = essayText.every((text) => {
-      return text.length > 1
-    })
-    console.log('shwo what the fuck', show)
-    return show
-  }
-  console.log('essay', essayText)
+const Essay = ({ essayText, showTextArea, editButton }: EssayProps) => {
   return (
     <section className='essay'>
       <article>
         <h2>Essay</h2>
         {essayText.length > 0 &&
-          essayText.map((sentence) => (
-            <b key={`${sentence}_fields`}>{sentence}</b>
+          essayText.map((sentence, key) => (
+            <b key={`${key}_fields`}>{` ${sentence}`}</b>
           ))}
       </article>
 
       {/* tells the edit button to show when all fields are populated and none contain
        empty strings */}
-      {showEditButton() && (
+      {editButton && (
         <button className='essay_edit-button' onClick={showTextArea}>
           <h3>EDIT</h3>
         </button>

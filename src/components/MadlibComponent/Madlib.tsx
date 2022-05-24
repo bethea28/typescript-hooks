@@ -1,12 +1,11 @@
 import React from 'react'
-import Form from './FormComponent/Form'
-import { FIELDS } from '../constants'
-import getTextTemplates from '../helpers'
+import Form from '../FormComponent/Form'
+import { FIELDS } from '../../constants'
+import getTextTemplates from '../../helpers'
+import Essay from '../EssayComponent/Essay'
+import TextAreaComponent from '../TextAAeaComponent/TextArea'
 
-import Essay from './EssayComponent/Essay'
-import TextAreaComponent from './TextAAeaComponent/TextArea'
-
-require('./App.css')
+require('./Madlib.css')
 
 const initFieldData = {
   field: '',
@@ -20,44 +19,60 @@ type fieldData = {
   event: { target: { value: string } }
 }
 
-const App = () => {
+const Madlib = () => {
   const [fields] = React.useState<string[]>(Object.keys(FIELDS))
-  const [updatedEssay, setUpdatedEssay] = React.useState<string[]>(
-    Array(6).fill('')
-  )
   const [textArea, setShowTextArea] = React.useState<boolean>(false)
+  const [editButtonFlag, setShowEditButton] = React.useState<boolean>(false)
   const [fieldData, setFieldData] = React.useState<fieldData>(initFieldData)
   const [mainAnswers, setMainAnswers] = React.useState<string[]>(
     Array(6).fill('')
   )
+  const [updatedEssay, setUpdatedEssay] = React.useState<string[]>(
+    Array(6).fill('')
+  )
 
-  const StartOver = () => {
+  const startOver = () => {
     setUpdatedEssay([])
     setMainAnswers([])
-    setShowTextArea(!textArea)
+    setShowTextArea(false)
+    setShowEditButton(false)
   }
 
-  const handlingOnBlur = () => {
+  const showTextArea = () => {
+    setShowTextArea(true)
+    setShowEditButton(false)
+  }
+
+  const handlingOnBlur = React.useCallback(() => {
     /*
     function called when onblur is triggered
     it generates new random madlib template and fills the answers
     */
     //core logic to generate template// need to take template out of array so that edit button works right
-    let template = getTextTemplates(fieldData.field)
+    const template = getTextTemplates(fieldData.field)
     const randomNumber = Math.floor(Math.random() * template.length)
     const updatedTemplate = template[randomNumber]
     mainAnswers[fieldData?.id] = updatedTemplate?.replace(
       '$answer',
       fieldData?.event.target.value
     )
-    let newMainAnswers = [...mainAnswers]
+    const newMainAnswers = [...mainAnswers]
+    const editButtonFlag = newMainAnswers?.every((text) => {
+      return text?.length >= 1
+    })
+    if (editButtonFlag && newMainAnswers.length >= 6) setShowEditButton(true)
     setUpdatedEssay(newMainAnswers)
-  }
+  }, [
+    fieldData?.event.target.value,
+    fieldData.field,
+    fieldData?.id,
+    mainAnswers,
+  ])
 
   return (
-    <section className='App'>
+    <section className='Madlib'>
       {!textArea && (
-        <section className='App_forms-container'>
+        <section className='Madlib_forms-container'>
           <article>
             <Form
               handleInputChange={(
@@ -67,28 +82,25 @@ const App = () => {
               ) => {
                 setFieldData({ field, id, event })
               }}
-              handleBlur={() => {
-                handlingOnBlur()
-              }}
+              handleBlur={handlingOnBlur}
               fieldOrder={fields}
               mainAnswers={mainAnswers}
             />
           </article>
           <article>
             <Essay
+              editButton={editButtonFlag}
               essayText={updatedEssay}
-              showTextArea={() =>
-                setShowTextArea((prevState: boolean) => !prevState)
-              }
+              showTextArea={showTextArea}
             />
           </article>
         </section>
       )}
 
       {textArea && (
-        <article className='App_textarea-component'>
+        <article className='Madlib_textarea-component'>
           <TextAreaComponent
-            handleStartOver={StartOver}
+            handleStartOver={startOver}
             essayText={updatedEssay}
           />
         </article>
@@ -97,4 +109,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Madlib

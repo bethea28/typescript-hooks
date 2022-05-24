@@ -4,31 +4,27 @@ is triggered
 */
 import React from 'react'
 import { FIELDS } from '../../constants'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 
 require('./Form.css')
 
-type Props = {
+type FormProps = {
   fieldOrder: string[]
   handleInputChange: (
     field: string,
     id: number,
     event: React.ChangeEvent<HTMLInputElement>
-  ) => any
+  ) => void
 
-  handleBlur: () => any
+  handleBlur: () => void
   mainAnswers: string[]
 }
 
-const Form: React.FC<Props> = ({
+const Form = ({
   fieldOrder,
   handleBlur,
   mainAnswers,
   handleInputChange,
-}) => {
-  console.log('form')
-
+}: FormProps) => {
   return (
     <form className='form'>
       <h2 className='form_header'>About Me</h2>
@@ -40,17 +36,13 @@ const Form: React.FC<Props> = ({
         >
           <h4 className='form_label-header'>{FIELDS[field]}</h4>
           <input
-            // value={mainAnswers[id]}
             className='form_input'
             type='text'
             name={field}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange(field, id, event)
             }
-            onBlur={() => handleBlur()}
-            // onBlur={(event: React.ChangeEvent<HTMLInputElement>) =>
-            //   handleBlur(field, id, event)
-            // }
+            onBlur={handleBlur}
           />
         </label>
       ))}
@@ -58,34 +50,4 @@ const Form: React.FC<Props> = ({
   )
 }
 
-const createMadlibMutation = gql`
-  mutation addChannel(
-    $growUp: String
-    $favoriteFood: String
-    $loveTodDo: String
-    $messageMe: String
-    $band: String
-    $favoriteHole: String
-    $id: String
-  ) {
-    createMadlib(
-      growUp: $growUp
-      favoriteFood: $favoriteFood
-      loveTodDo: $loveTodDo
-      messageMe: $messageMe
-      band: $band
-      favoriteHole: $favoriteHole
-      id: $id
-    ) {
-      growUp
-      favoriteFood
-      loveTodDo
-      messageMe
-      band
-      favoriteHole
-      id
-    }
-  }
-`
-// const FormWithMutation = graphql(createMadlibMutation)(Form)
 export default Form
