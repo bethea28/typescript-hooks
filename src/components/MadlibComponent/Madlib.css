@@ -1,14 +1,14 @@
-.App {
+.Madlib {
   background-color: rgb(60, 60, 233);
-  height: 700px; 
+  height: 700px;
 }
 
-.App_forms-container {
+.Madlib_forms-container {
   display: flex;
   justify-content: center;
   padding: 20px;
 }
-.App_textarea-component {
+.Madlib_textarea-component {
   display: flex;
   justify-content: center;
 }
