@@ -1,5 +1,5 @@
 ## How to use
-Madib App For Fun!
+Madlib App For Fun!
 
 First, make sure you have a modern version of `node` and `yarn.`
 
