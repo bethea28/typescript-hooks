@@ -1,6 +1,5 @@
 /* 
-Form takes in data through onChange but only displays it to screen when onBlur
-is triggered
+Form takes in data through onChange but only displays it to screen when onBlur is triggered
 */
 import React from 'react'
 import { FIELDS } from '../../constants'
@@ -27,7 +26,7 @@ const Form = ({
 }: FormProps) => {
   return (
     <form className='form'>
-      <h2 className='form_header'>About Me</h2>
+      <h2 className='form_header'>About Me Madlib</h2>
       {fieldOrder.map((field: string, id: number) => (
         <label
           className='form_label'

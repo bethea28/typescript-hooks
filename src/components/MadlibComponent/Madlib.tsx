@@ -43,10 +43,17 @@ const Madlib = () => {
     setShowEditButton(false)
   }
 
+  const handleInputChange = (
+    field: string,
+    id: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFieldData({ field, id, event })
+  }
+
   const handlingOnBlur = React.useCallback(() => {
     /*
-    function called when onblur is triggered
-    it generates new random madlib template and fills the answers
+    function called when onblur is triggered; it generates new random madlib template and fills the answers
     */
     //core logic to generate template// need to take template out of array so that edit button works right
     const template = getTextTemplates(fieldData.field)
@@ -80,7 +87,7 @@ const Madlib = () => {
                 id: number,
                 event: React.ChangeEvent<HTMLInputElement>
               ) => {
-                setFieldData({ field, id, event })
+                handleInputChange(field, id, event)
               }}
               handleBlur={handlingOnBlur}
               fieldOrder={fields}

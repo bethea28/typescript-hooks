@@ -14,8 +14,6 @@ const TextAreaComponent = ({
   return (
     <section className='textarea-container'>
       <h2>Your essay text</h2>
-
-      {/* onChange required for eslint purposes */}
       <textarea className='textarea-component' value={essayText.join(' ')} />
       <button
         className='textarea-container_startover_button '
